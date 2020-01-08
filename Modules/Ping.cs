@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -17,10 +18,10 @@ namespace DotNetDcBot.Modules
         public async Task CmdHelpAsync()
         {
             await ReplyAsync("**Commands that will react to**:\n" +
-                "`//help` - Short info about commands\n"+
-                "`//hi` - Tells you hello\n"+
-                "`//ai` - Talk with a brainless being\n"+
-                "`//translate` - Translate text in other languages. Usage: `//translate \"Some text\" resultLanguage` or `//translate \"Some text\"`\n"
+                "`/help` - Short info about commands\n"+
+                "`/hi` - Tells you hello\n"+
+                "`/ai` - Talk with a brainless being\n"+
+                "`/translate` - Translate text in other languages. Usage: `/translate \"Some text\" resultLanguage` or `/translate \"Some text\"`\n"
                 );
         }
 
@@ -115,5 +116,6 @@ namespace DotNetDcBot.Modules
                 await ReplyAsync(responseStringContent);
             }
         }
+        
     }
 }

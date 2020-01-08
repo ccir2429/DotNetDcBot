@@ -63,7 +63,9 @@ namespace DotNetDcBot
                 var context = new SocketCommandContext(_client, message);
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
                 if (!result.IsSuccess)
+                {
                     Console.WriteLine(result.ErrorReason);
+                }
             } 
         }
 
