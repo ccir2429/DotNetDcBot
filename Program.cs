@@ -28,7 +28,7 @@ namespace DotNetDcBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
             _botPrefix ="/";
-            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhReXg.Uyg81VnaX1-Mqh1AbAdeZRYS-LU";
+            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhbUtA.GX3C7IT0f01bZWBEpVvVyghjBHI";
 
             //event subscription
             _client.Log += Log;
