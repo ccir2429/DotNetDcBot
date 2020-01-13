@@ -26,7 +26,7 @@ namespace DotNetDcBot.Modules
         [Command("setup"),RequireContext(ContextType.Guild)]
         public async Task ServerStartHelp()
         {
-            await ReplyAsync("");
+            throw new NotImplementedException();
         }
     }
 }

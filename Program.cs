@@ -36,7 +36,7 @@ namespace DotNetDcBot
                 .BuildServiceProvider();
             _botPrefix ="/";
 
-            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhReXg.Uyg81VnaX1-Mqh1AbAdeZRYS-LU";
+            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhxEXw.tcIZ03vl-xJA2fb3nfAxtOm4udo";
             
             //event subscription
             _client.Log += Log;
@@ -45,7 +45,7 @@ namespace DotNetDcBot
 
             await _client.LoginAsync(Discord.TokenType.Bot, botToken);
             await _client.StartAsync();
-
+            
             await Task.Delay(-1);
 
 
@@ -73,10 +73,20 @@ namespace DotNetDcBot
                 var context = new SocketCommandContext(_client, message);
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
                 //await message.Channel.DeleteMessageAsync(message.Id);
+                var group = context.Guild;
                 if (!result.IsSuccess)
                 {
-                    Console.WriteLine(result.ErrorReason);
+                    Console.WriteLine("["
+                        + group.Name + "_"
+                        + group.Id + "]: "+result.ErrorReason);
                     await context.Message.Channel.SendMessageAsync(result.ErrorReason);
+                }
+                else {
+                    Console.WriteLine("["+context.Message.Author.Username+"]@"
+                        +"["
+                        + group.Name + "_"
+                        +group.Id+"]: "
+                        +context.Message.Content);
                 }
             } 
         }

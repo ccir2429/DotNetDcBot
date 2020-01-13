@@ -14,7 +14,7 @@ namespace DotNetDcBot.Modules
     
     public class Ping : ModuleBase<SocketCommandContext>
     {
-        [Command("help",true)]
+        [Command("info")]
         public async Task CmdHelpAsync()
         {
             await ReplyAsync("**Commands that will react to**:\n" +
@@ -89,6 +89,35 @@ namespace DotNetDcBot.Modules
                 await ReplyAsync(responseStringContent);
             }
         }
+
+
+        [Command("exit",true)]
+        public async Task ShutdownBot()
+        {
+            await ReplyAsync("Shutting down...");
+            Environment.Exit(0);
+        }
+
+        [Command("test", true)]
+        public async Task Testing()
+        {/*
+            await ReplyAsync("test!");
+            var _embed = new EmbedBuilder
+            {
+                Title = "Tst EmBed"
+            };
+
+
+            _embed.WithColor(Color.DarkPurple)
+                .WithCurrentTimestamp();
+            await ReplyAsync(embed: _embed.Build());
+            */
+            await ReplyAsync("test");
+           
+        }
+
+
+
         private IRestResponse RequestDataFromAPI(string fullCommand) {
             var encodedMessage = System.Web.HttpUtility.UrlEncode(fullCommand);
             var url = "https://acobot-brainshop-ai-v1.p.rapidapi.com/get?" +
