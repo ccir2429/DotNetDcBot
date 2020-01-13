@@ -35,12 +35,9 @@ namespace DotNetDcBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
             _botPrefix ="/";
-<<<<<<< Updated upstream
-            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhReXg.Uyg81VnaX1-Mqh1AbAdeZRYS-LU";
-=======
-            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhbzRg.vTS43ZRRaWUz9WuxzorR1GgtNuk";
->>>>>>> Stashed changes
 
+            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhReXg.Uyg81VnaX1-Mqh1AbAdeZRYS-LU";
+            
             //event subscription
             _client.Log += Log;
             
