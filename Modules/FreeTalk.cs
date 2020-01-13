@@ -1,4 +1,6 @@
 ﻿using Discord.Commands;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -8,13 +10,48 @@ using System.Threading.Tasks;
 
 namespace DotNetDcBot.Modules
 {
-    [Group("ft")]
-    class FreeTalk : ModuleBase<SocketCommandContext>
-    {   
-        [Command]
-        public async Task TalkAsync([Remainder] string message)
+    
+    public class FreeTalk : ModuleBase<SocketCommandContext>
+    {
+        [Command("ai")]
+        public async Task ArtificialInteligenceTalkAsync([Remainder] string message)
         {
-            var encodedMessage = System.Web.HttpUtility.UrlEncode(message);
+            IRestResponse response = RequestDataFromAPI(message);
+            if (response.IsSuccessful)
+            {
+                var res = (JObject)JsonConvert.DeserializeObject(response.Content); ;
+                var responseStringContent = res["cnt"].ToString();
+                await ReplyAsync(responseStringContent);
+            }
+        }
+        [Command("riddle")]
+        public async Task RiddleAsync([Remainder]string remainder = null)
+        {
+            string fullCommand = $"tell me a riddle";
+
+            IRestResponse response = RequestDataFromAPI(fullCommand);
+            if (response.IsSuccessful)
+            {
+                var res = (JObject)JsonConvert.DeserializeObject(response.Content); ;
+                var responseStringContent = res["cnt"].ToString();
+                await ReplyAsync(responseStringContent);
+            }
+        }
+        [Command("answer")]
+        public async Task RiddleAnswerAsync(string riddle)
+        {
+            string fullCommand = "what is the answer to this riddle: +" + riddle ;
+            IRestResponse response = RequestDataFromAPI(fullCommand);
+            if (response.IsSuccessful)
+            {
+                var res = (JObject)JsonConvert.DeserializeObject(response.Content); ;
+                var responseStringContent = res["cnt"].ToString();
+                await ReplyAsync(responseStringContent);
+            }
+        }
+        private IRestResponse RequestDataFromAPI(string fullCommand)
+        {
+            var encodedMessage = System.Web.HttpUtility.UrlEncode(fullCommand);
             var url = "https://acobot-brainshop-ai-v1.p.rapidapi.com/get?" +
                 "bid=178" +
                 "&key=sX5A2PcYZbsN5EY6" +
@@ -25,8 +62,7 @@ namespace DotNetDcBot.Modules
             request.AddHeader("x-rapidapi-host", "acobot-brainshop-ai-v1.p.rapidapi.com");
             request.AddHeader("x-rapidapi-key", "2883dd0e29msha3d1ec5c6d3ca7cp12b85djsnb1129a6f6def");
             IRestResponse response = client.Execute(request);
-            if (response.IsSuccessful)
-                await ReplyAsync(response.Content);
+            return response;
         }
     }
 }

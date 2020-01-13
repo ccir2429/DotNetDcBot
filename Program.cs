@@ -14,7 +14,14 @@ namespace DotNetDcBot
 {
     class Program
     {
-        static async Task Main(string[] args) => new Program().RunBotAsync().GetAwaiter().GetResult();
+        static async Task Main(string[] args) {
+            var app=new Program();
+            
+
+            app.RunBotAsync().GetAwaiter().GetResult();
+            
+
+        }
         private string _botPrefix;
         private DiscordSocketClient _client;
         private CommandService _commands;
@@ -28,16 +35,22 @@ namespace DotNetDcBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
             _botPrefix ="/";
-            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhbUtA.GX3C7IT0f01bZWBEpVvVyghjBHI";
+<<<<<<< Updated upstream
+            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhReXg.Uyg81VnaX1-Mqh1AbAdeZRYS-LU";
+=======
+            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhbzRg.vTS43ZRRaWUz9WuxzorR1GgtNuk";
+>>>>>>> Stashed changes
 
             //event subscription
             _client.Log += Log;
-
+            
             await RegisterCommandsAsync();
 
             await _client.LoginAsync(Discord.TokenType.Bot, botToken);
             await _client.StartAsync();
+
             await Task.Delay(-1);
+
 
         }
 
@@ -62,9 +75,11 @@ namespace DotNetDcBot
             {
                 var context = new SocketCommandContext(_client, message);
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
+                //await message.Channel.DeleteMessageAsync(message.Id);
                 if (!result.IsSuccess)
                 {
                     Console.WriteLine(result.ErrorReason);
+                    await context.Message.Channel.SendMessageAsync(result.ErrorReason);
                 }
             } 
         }

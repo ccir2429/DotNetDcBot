@@ -131,7 +131,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\BotSetup.cs" />
     <Compile Include="Modules\FreeTalk.cs" />
+    <Compile Include="Modules\Info.cs" />
     <Compile Include="Modules\Ping.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
