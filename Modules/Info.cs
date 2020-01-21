@@ -23,7 +23,8 @@ namespace DotNetDcBot.Modules
                 "`/answer` - tells you the answer to a riddle. Usage: `/answer \"I’m tall when I’m young and I’m short when I’m old. What am I?\"`"
                 );
         }
-        [Command("setup"),RequireContext(ContextType.Guild)]
+        
+        [Command("r",true),RequireContext(ContextType.Guild)]
         public async Task ServerStartHelp()
         {
             throw new NotImplementedException();

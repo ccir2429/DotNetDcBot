@@ -131,6 +131,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\GuildBotConfig.cs" />
     <Compile Include="Modules\BotSetup.cs" />
     <Compile Include="Modules\FreeTalk.cs" />
     <Compile Include="Modules\Info.cs" />
@@ -143,5 +144,6 @@
     <None Include="Modules\App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

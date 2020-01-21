@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DotNetDcBot.Modules;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ namespace DotNetDcBot
             string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhxEXw.tcIZ03vl-xJA2fb3nfAxtOm4udo";
             
             //event subscription
+            _client.MessageReceived += MessageHandler;
             _client.Log += Log;
             
             await RegisterCommandsAsync();
@@ -49,6 +51,42 @@ namespace DotNetDcBot
             await Task.Delay(-1);
 
 
+        }
+
+        private async Task MessageHandler(SocketMessage message)
+        {
+            if (!message.Content.StartsWith("/"))
+            { 
+                Ping ping = new Ping();
+                switch (message.Channel.Name)
+                {
+                    case null:
+                        await Log(new LogMessage(LogSeverity.Debug, "MessageHandler", "Error at Channel Name"));
+                        break;
+                    case "german-to-english":
+                        if (!message.Author.IsBot)
+                        {
+                            await message.Channel.SendMessageAsync($"**{message.Author}**");
+                            var result = ping.TranslateString(message.Content, "english");
+                            await message.Channel.SendMessageAsync($"{result}");
+                            await message.DeleteAsync();
+                        }
+                        break;
+                    case "english-to-german":
+                        if (!message.Author.IsBot)
+                        {
+                            await message.Channel.SendMessageAsync($"**{message.Author}**");
+                            var result = ping.TranslateString(message.Content, "german");
+                            await message.Channel.SendMessageAsync($"{result}");
+                            await message.DeleteAsync();
+                        }
+                        break;
+                    default:
+                        //await Log(new LogMessage(LogSeverity.Debug, "MessageHandler", "Default case"));
+                        break;
+                }
+            }
+        
         }
 
         private Task Log(LogMessage arg)
@@ -76,19 +114,20 @@ namespace DotNetDcBot
                 var group = context.Guild;
                 if (!result.IsSuccess)
                 {
-                    Console.WriteLine("["
+                    Console.WriteLine(context.Message.Timestamp.TimeOfDay + "[Error]@["
                         + group.Name + "_"
                         + group.Id + "]: "+result.ErrorReason);
                     await context.Message.Channel.SendMessageAsync(result.ErrorReason);
                 }
                 else {
-                    Console.WriteLine("["+context.Message.Author.Username+"]@"
+                    
+                    Console.WriteLine(context.Message.Timestamp.TimeOfDay + "[" +context.Message.Author.Username+"]@"
                         +"["
                         + group.Name + "_"
                         +group.Id+"]: "
                         +context.Message.Content);
                 }
-            } 
+            }  
         }
 
         private string getConfig(string key)
