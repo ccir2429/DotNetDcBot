@@ -37,7 +37,7 @@ namespace DotNetDcBot
                 .BuildServiceProvider();
             _botPrefix ="/";
 
-            string botToken = "NjY0MDEzODg5ODYzODExMDcy.XhxEXw.tcIZ03vl-xJA2fb3nfAxtOm4udo";
+            string botToken = "";
             
             //event subscription
             _client.MessageReceived += MessageHandler;
